@@ -6,6 +6,7 @@
     <link href="src/css/bootstrap.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/444124e308.js" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-light">
@@ -183,7 +184,10 @@
             </div>
         </div>
     </section>
-    <section id="certification-section">
+    <section id="experience-section">
+
+    </section>
+    <section id="certification-section" hidden>
         <div class="container py-4">
             <div class="p-5 mb-4 bg-light rounded-3">
                 <div class="container-fluid py-1">
@@ -194,6 +198,9 @@
             </div>
         </div>
     </section>
+    <section id="project-section">
+
+    </section>
     <section id="contact-section">
         <div class="bg-dark text-secondary px-4 py-5 text-center">
             <div class="py-5">
@@ -201,18 +208,18 @@
                 <div class="col-lg-6 mx-auto">
                     <p class="fs-5 mb-4">
                     <div class="m-2">
-                        <i class="fa-brands fa-linkedin fa-5x"></i>
+                        <i class="fa-brands fa-linkedin fa-3x" onclick="openLinkedin()"></i>
                     </div>
                     <div class="m-2">
-                        <i class="fa-brands fa-github fa-5x"></i>
+                        <i class="fa-brands fa-github fa-3x" onclick="openGithubProfile()"></i>
                     </div>
                     <div class="m-2 align-items-center">
-                        <i class="fa-solid fa-envelope fa-5x"></i><a href="#" class="align-content-center">tomek.woytkowiak@gmail.com</a>
+                        <i class="fa-solid fa-envelope fa-3x" onclick="sendEmail()"></i>tomek.woytkowiak@gmail.com
                     </div>
                     </p>
-                    </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 </main>
