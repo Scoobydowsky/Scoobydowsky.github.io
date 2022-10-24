@@ -25,6 +25,9 @@
                     <a class="nav-link" href="#">Skills</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Education</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link disabled" href="#">Experience</a>
                 </li>
                 <li class="nav-item">
@@ -70,36 +73,28 @@
                          class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500"
                          loading="lazy">
                     <div class="m-4 align-items-center align-self-center">
-                        <i class="fa-brands fa-linkedin fa-2xl"></i>
-                        <i class="fa-brands fa-github fa-2xl"></i>
-                        <i class="fa-solid fa-file fa-2xl"></i>
+                        <i class="fa-brands fa-linkedin fa-2xl" onclick="openLinkedin()"></i>
+                        <i class="fa-brands fa-github fa-2xl" onclick="openGithubProfile()"></i>
+                        <i class="fa-solid fa-file fa-2xl" onclick="downloadCV()"></i>
                     </div>
 
                 </div>
                 <div class="col-lg-6">
-                    <h1 class="display-5 fw-bold lh-1 mb-3">Responsive left-aligned hero with image</h1>
-                    <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the
-                        world’s most popular front-end open source toolkit, featuring Sass variables and mixins,
-                        responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+                    <h1 class="display-5 fw-bold lh-1 mb-3">Welcome.</h1>
+                    <!--TODO zmienić ten opis !!! -->
+                    <p class="lead">My name is Tomasz Woytkowiak, im live in small town Kościan, 40km form Poznań. Im IT technician. Currently im studying IT at CDV in Poznań.
+                    On my own im learning PHP with Symfony framework.
+                    </p>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                         <div class="m-5">Hobby:
                             <ul>
-                                <li>Add</li>
-                                <li>Add</li>
-                                <li>Add</li>
+                                <li>Programming</li>
+                                <li>Computer Games</li>
+                                <li>Collecting Coins</li>
                             </ul>
                         </div>
-                        <div class="m-5">Education:
-                            <ul>
-                                <li>Add</li>
-                                <li>Add</li>
-                                <li>Add</li>
-                            </ul>
-                        </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -183,6 +178,31 @@
             </div>
         </div>
     </section>
+    <section id="education-section">
+        <h2 class="pb-2 border-bottom text-center">Education</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="">
+                        <div class="card-body">
+                            <div>
+                                <ul class="timeline">
+                                    <li class="event" data-date="2021-present">
+                                        <h1 class="fw-bold">IT Engineer</h1>
+                                        <h6>Collegium Da Vinci in Poznań</h6>
+                                    </li>
+                                    <li class="event" data-date="2X1X - 2X1X">
+                                        <h1 class="fw-bold">IT Technician</h1>
+                                        <h6>Zespół Szkół Technicznych w Lesznie</h6>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section id="experience-section">
         <h2 class="pb-2 border-bottom text-center">Experience</h2>
         <div class="container">
@@ -190,28 +210,12 @@
                 <div class="col-md-12">
                     <div class="">
                         <div class="card-body">
-                            <h6 class="card-title">Timeline</h6>
                             <div id="content">
                                 <ul class="timeline">
-                                    <li class="event" data-date="2018-2022">
-                                        <h1 class="fw-bold">PHP DEV</h1>
-                                        <h6>Firma jakaś</h6>
-                                        <p>Get here on time, it's first come first serve. Be late, get turned away.</p>
-                                    </li>
-                                    <li class="event" data-date="2:30 - 4:00pm">
-                                        <h3>Opening Ceremony</h3>
-                                        <p>Get ready for an exciting event, this will kick off in amazing fashion with
-                                            MOP &amp; Busta Rhymes as an opening show.</p>
-                                    </li>
-                                    <li class="event" data-date="5:00 - 8:00pm">
-                                        <h3>Main Event</h3>
-                                        <p>This is where it all goes down. You will compete head to head with your
-                                            friends and rivals. Get ready!</p>
-                                    </li>
-                                    <li class="event" data-date="8:30 - 9:30pm">
-                                        <h3>Closing Ceremony</h3>
-                                        <p>See how is the victor and who are the losers. The big stage is where the
-                                            winners bask in their own glory.</p>
+                                    <li class="event" data-date="N/A">
+                                        <h1 class="fw-bold">Developer</h1>
+                                        <h6>Company</h6>
+                                        <p>I don't have any experience yet.</p>
                                     </li>
                                 </ul>
                             </div>
@@ -306,10 +310,10 @@
                 <div class="col-lg-6 mx-auto">
                     <p class="fs-5 mb-4">
                     <div class="m-2">
-                        <i class="fa-brands fa-linkedin fa-3x" onclick="openLinkedin()"></i>
+                        <i class="fa-brands fa-linkedin fa-3x" onclick="openLinkedin()"></i>Tomasz Woytkowiak
                     </div>
                     <div class="m-2">
-                        <i class="fa-brands fa-github fa-3x" onclick="openGithubProfile()"></i>
+                        <i class="fa-brands fa-github fa-3x" onclick="openGithubProfile()"></i>Scoobydowsky
                     </div>
                     <div class="m-2 align-items-center">
                         <i class="fa-solid fa-envelope fa-3x" onclick="sendEmail()"></i>tomek.woytkowiak@gmail.com
