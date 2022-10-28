@@ -26,6 +26,7 @@ function setLangPL() {
     document.getElementById("aboutMe-section-hobby3").innerHTML="Numizmatyka";
     /* skills section translate*/
     document.getElementById("skills-section-label").innerHTML="Umiejętności";
+    //TODO switch skills id to more accurate
     document.getElementById("skills-section-skill1-dsc").innerHTML="Opis co umiem";//TODO
     document.getElementById("skills-section-skill2-dsc").innerHTML="Opis co umiem";//TODO
     document.getElementById("skills-section-skill3-dsc").innerHTML="Opis co umiem";//TODO
