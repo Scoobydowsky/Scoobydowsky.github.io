@@ -87,7 +87,7 @@ function setLangEN() {
     document.getElementById("aboutMe-section-hobby2").innerHTML = "Computer Games";
     document.getElementById("aboutMe-section-hobby3").innerHTML = "Collecting Coins";
     /* skills section translate*/
-    document.getElementById("skills-section-label").innerHTML = "Skills";
+    document.getElementById("skills-section-label").innerHTML = "Tech stack";
     //TODO switch skills id to more accurate
     document.getElementById("skills-section-skill1-dsc").innerHTML = "Opis co umiem";//TODO
     document.getElementById("skills-section-skill2-dsc").innerHTML = "Opis co umiem";//TODO
