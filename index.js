@@ -1,4 +1,4 @@
-var lang = "en";
+let lang = "en";
 
 function setLangPL() {
     lang = "pl";
@@ -139,11 +139,10 @@ function openGithubProfile() {
 }
 
 function downloadCV() {
-    var url = "";
-    if (lang == "pl") {
-        url = "/res/cv-pl.pdf";
+    if (lang === "pl") {
+       var url = "/res/cv-pl.pdf";
     } else {
-        url = "/res/cv-en.pdf";
+       var url = "/res/cv-en.pdf";
     }
     window.open(url, '_blank').focus();
 }
