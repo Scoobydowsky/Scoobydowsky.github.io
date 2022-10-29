@@ -107,11 +107,11 @@ function setLangEN() {
     document.getElementById("experience-section-label").innerHTML = "Experience";
     document.getElementById("experience-section-work1-date").setAttribute("data-date", "N/A");
     document.getElementById("experience-section-work1-job").innerHTML = "PHP Developer";
-    document.getElementById("experience-section-work1-company").innerHTML = "No Company";
+    document.getElementById("experience-section-work1-company").innerHTML = "No company";
     document.getElementById("experience-section-work1-dsc").innerHTML = "Im not have any experience";
     /*certification section translate */
     document.getElementById("certification-section-label").innerHTML = "Certification";
-    document.getElementById("certification-section-certificate1-name").innerHTML = "Name of certification";
+    document.getElementById("certification-section-certificate1-name").innerHTML = "Name certificate";
     document.getElementById("certification-section-certificate1-company").innerHTML = "Company";
     document.getElementById("certification-section-certificate1-check").innerHTML = "See Certificate";
     /*project section translate */
