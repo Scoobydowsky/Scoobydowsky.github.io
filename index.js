@@ -27,12 +27,12 @@ function setLangPL() {
     /* skills section translate*/
     document.getElementById("skills-section-label").innerHTML = "Umiejętności";
     //TODO switch skills id to more accurate
-    document.getElementById("skills-section-skill1-dsc").innerHTML = "Opis co umiem";//TODO
-    document.getElementById("skills-section-skill2-dsc").innerHTML = "Opis co umiem";//TODO
-    document.getElementById("skills-section-skill3-dsc").innerHTML = "Opis co umiem";//TODO
-    document.getElementById("skills-section-skill4-dsc").innerHTML = "Opis co umiem";//TODO
-    document.getElementById("skills-section-skill5-dsc").innerHTML = "Opis co umiem";//TODO
-    document.getElementById("skills-section-skill6-dsc").innerHTML = "Opis co umiem";//TODO
+    document.getElementById("skills-section-skill1-dsc").innerHTML = "";//TODO
+    document.getElementById("skills-section-skill2-dsc").innerHTML = "";//TODO
+    document.getElementById("skills-section-skill3-dsc").innerHTML = "";//TODO
+    document.getElementById("skills-section-skill4-dsc").innerHTML = "";//TODO
+    document.getElementById("skills-section-skill5-dsc").innerHTML = "";//TODO
+    document.getElementById("skills-section-skill6-dsc").innerHTML = "";//TODO
     /* education section translate */
     document.getElementById("education-section-desciption").innerHTML = "Wykształcenie";
     document.getElementById("education-section-school2-date").setAttribute("data-date", "2021-obecnie");
@@ -89,12 +89,12 @@ function setLangEN() {
     /* skills section translate*/
     document.getElementById("skills-section-label").innerHTML = "Tech stack";
     //TODO switch skills id to more accurate
-    document.getElementById("skills-section-skill1-dsc").innerHTML = "Opis co umiem";//TODO
-    document.getElementById("skills-section-skill2-dsc").innerHTML = "Opis co umiem";//TODO
-    document.getElementById("skills-section-skill3-dsc").innerHTML = "Opis co umiem";//TODO
-    document.getElementById("skills-section-skill4-dsc").innerHTML = "Opis co umiem";//TODO
-    document.getElementById("skills-section-skill5-dsc").innerHTML = "Opis co umiem";//TODO
-    document.getElementById("skills-section-skill6-dsc").innerHTML = "Opis co umiem";//TODO
+    document.getElementById("skills-section-skill1-dsc").innerHTML = "";//TODO
+    document.getElementById("skills-section-skill2-dsc").innerHTML = "";//TODO
+    document.getElementById("skills-section-skill3-dsc").innerHTML = "";//TODO
+    document.getElementById("skills-section-skill4-dsc").innerHTML = "";//TODO
+    document.getElementById("skills-section-skill5-dsc").innerHTML = "";//TODO
+    document.getElementById("skills-section-skill6-dsc").innerHTML = "";//TODO
     /* education section translate */
     document.getElementById("education-section-desciption").innerHTML = "Education";
     document.getElementById("education-section-school2-date").setAttribute("data-date", "2021-present");
@@ -129,20 +129,21 @@ function sendEmail() {
 }
 
 function openLinkedin() {
-    var url = "https://www.linkedin.com/in/tomek-woytkowiak/";
+    let url = "https://www.linkedin.com/in/tomek-woytkowiak/";
     window.open(url, '_blank').focus();
 }
 
 function openGithubProfile() {
-    var url = "https://github.com/Scoobydowsky";
+    let url = "https://github.com/Scoobydowsky";
     window.open(url, '_blank').focus();
 }
 
 function downloadCV() {
+    let url;
     if (lang === "pl") {
-       var url = "/res/cv-pl.pdf";
+        url = "/res/cv-pl.pdf";
     } else {
-       var url = "/res/cv-en.pdf";
+        url = "/res/cv-en.pdf";
     }
     window.open(url, '_blank').focus();
 }
