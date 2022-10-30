@@ -79,7 +79,7 @@ function setLangEN() {
     document.getElementById("hello-section-description").innerHTML = "PHP Developer";
     /* about me section translation */
     document.getElementById("aboutMe-section-label").innerHTML = "About Me";
-    document.getElementById("aboutMe-section-description").innerHTML = "Hi, my name Tomasz Woytkowiak. Im currently studing IT at Collegium Da Vinci in Poznań.\n" +
+    document.getElementById("aboutMe-section-description").innerHTML = "Hi, my name is Tomasz Woytkowiak. Im currently studing IT at Collegium Da Vinci in Poznań.\n" +
         "                        In my project i use PHP , curently i learn usage Symfony 5 usage.\n" +
         "                        As a hobby, I create different things using Arduino.";
     document.getElementById("aboutMe-section-hobby-label").innerHTML = "Hobby:";
