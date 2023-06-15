@@ -13,85 +13,96 @@
     <link rel="stylesheet" href="assets/css/MUSA_carousel-product-cart-slider.css">
     <link rel="stylesheet" href="assets/css/Navbar-With-Button-icons.css">
     <link rel="stylesheet" href="assets/css/timeline-F19687.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
     <script src="calculator.js"></script>
     <script src="src/js/jquery-3.7.0.min.js"></script>
-    
-    <script>
-        var progressBar = document.getElementById('testowy_progressbar');
-        var progressContainer = document.querySelector('.progress-container');
-        var observer = new IntersectionObserver(function(entries, observer) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    // Gdy progress bar jest widoczny, zacznij animację ładowania
-                    animateProgressBar();
-                    observer.unobserve(entry.target);
-                }
-            });
-        });
-
-        // Obserwuj progress container
-        observer.observe(progressContainer);
-
-        // Funkcja animująca ładowanie progress bara
-        function animateProgressBar() {
-            var width = 0;
-            var id = setInterval(frame, 10);
-            function frame() {
-                if (width >= 30) {
-                    clearInterval(id);
-                } else {
-                    width++;
-                    progressBar.style.width = width + '%';
-                    progressBar.innerText = width + '%';
-                }
-            }
+    <style>
+        .progress-container {
+            height: 20px;
+            overflow: hidden;
         }
-    </script>
+
+        .timeline {
+            list-style-type: none;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .timeline-item.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 
-<body>
+<body style="
+    background-image: url('assets/img/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+">
 <nav class="navbar navbar-dark navbar-expand-md bg-dark text-center py-3 sticky-top" style="background: rgb(0,0,0);">
     <div class="container">
         <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span
                 class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse d-xl-flex" id="navcol-1">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link active" href="#">O mnie</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Umiejętności</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Wykształcenie</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Doświadczenie</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Projekty</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Kalkulator</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Kontakt</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Zmiana języka</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#about-me-section">O mnie</a></li>
+                <li class="nav-item"><a class="nav-link" href="#skills-section">Umiejętności</a></li>
+                <li class="nav-item"><a class="nav-link" href="#edu-section">Wykształcenie</a></li>
+                <li class="nav-item"><a class="nav-link" href="#exp-section">Doświadczenie</a></li>
+                <li class="nav-item"><a class="nav-link" href="#project-section">Projekty</a></li>
+                <li class="nav-item"><a class="nav-link" href="#calc-section">Kalkulator</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact-section">Kontakt</a></li>
+                <!--<li class="nav-item"><a class="nav-link" href="#">Zmiana języka</a></li>-->
             </ul>
         </div>
     </div>
 </nav>
 <main>
+    <!-- POPUP -->
     <div class="modal fade" role="dialog" tabindex="-1" id="contact-modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title d-block">Zainteresowany współpracą ?</h4>
+                    <h4 class="modal-title d-block">Zainteresowany współpracą?</h4>
                     <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <p class="d-block">Skontaktuj się ze mną.</p>
-                    <form class="d-block"><label class="form-label">Imię i Nazwisko* :</label></form>
-                    <input class="d-inline-block" type="text" placeholder="Jan Kowalski"><label
-                        class="form-label d-block">E-mail* :</label><input type="email"
-                                                                           placeholder="mail@example.com"><label
-                        class="form-label d-block">Treść wiadomości:</label><textarea class="form-control-lg d-block"
-                                                                                      style="width: 100%;height: 10em;"></textarea>
-                    <div class="modal-footer">
-                        <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                        <input class="btn btn-primary" type="submit"></div>
+                    <form class="d-block">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Imię i Nazwisko*:</label>
+                            <input id="name" class="form-control" type="text" placeholder="Jan Kowalski">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">E-mail*:</label>
+                            <input id="email" class="form-control" type="email" placeholder="mail@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="form-label">Treść wiadomości:</label>
+                            <textarea id="message" class="form-control" style="width: 100%; height: 10em;"></textarea>
+                        </div>
+                        <p class="d-block">* pola wymagane</p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                    <input class="btn btn-primary" type="submit" value="Send">
                 </div>
             </div>
         </div>
     </div>
-    <div class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3500" id="carousel-1"
+    <!-- END POPUP-->
+    <!-- CAROUSEL -->
+    <div class="mb-5" id="about-me-section">
+    <div class="carousel slide carousel-fade"  data-bs-ride="carousel" data-bs-interval="3000"
+         id="carousel-1"
          style="height: 600px;">
         <div class="carousel-inner h-100">
             <div class="carousel-item h-100"><img class="w-100 d-block position-absolute h-100 fit-cover"
@@ -105,8 +116,11 @@
                         </div>
                         <div class="col-md-6 col-xl-3 offset-md-2 offset-xl-1">
                             <div style="max-width: 350px;">
-                                <h1 class="text-uppercase fw-bold">HI, IM TOMEK</h1>
-                                <p class="my-3"><span style="color: rgb(104, 108, 109);">Hi, my name is Tomasz Woytkowiak. Im currently studing IT at Collegium Da Vinci in Poznań. In my project i use PHP , curently i learn usage Symfony 6 usage. As a hobby, I create different things using Arduino.</span>
+                                <h1 class="text-uppercase fw-bold">Cześć, jestem Tomek</h1>
+                                <p class="my-3"><span style="color: rgb(104, 108, 109);">
+                                    Witaj, nazywam się Tomasz Woytkowiak. Studiuję informatykę na Collegium Da vinci w Poznaniu.
+                                    W swoich projektach wykorzystuje PHP , obecnie uczę się wykorzystania Frameworku Symfony 5.
+                                    Hobbystycznie tworzę różne rzeczy przy wykorzystaniu Arduino.</span>
                                 </p><a class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
                                        data-bs-target="#contact-modal" role="button" href="#">Skontaktuj się ze mną</a>
                             </div>
@@ -115,9 +129,9 @@
                 </div>
             </div>
             <div class="carousel-item h-100"><img class="w-100 d-block position-absolute h-100 fit-cover"
-                                                  src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"
+                                                  src="assets/img/carusel/3.jpg"
                                                   alt="Slide Image" style="z-index: -1;">
-                <div class="container text-start d-flex flex-column justify-content-center h-100">
+                <div class="container text-start d-flex flex-column justify-content-center h-100 text-bg-light bg-opacity-75 rounded-3">
                     <div class="row">
                         <div class="col-md-6 col-xl-3 offset-md-2">
                             <div style="max-width: 350px;"></div>
@@ -125,7 +139,7 @@
                         </div>
                         <div class="col-md-6 col-xl-3 offset-md-2">
                             <div style="max-width: 350px;">
-                                <h1 class="text-uppercase fw-bold">HI, IM TOMEK</h1>
+                                <h1 class="text-uppercase fw-bold">Cześć, jestem Tomek</h1>
                                 <p class="my-5">Moje hobby:</p>
                                 <ul>
                                     <li>Programowanie</li>
@@ -141,118 +155,115 @@
                 </div>
             </div>
             <div class="carousel-item active h-100"><img class="w-100 d-block position-absolute h-100 fit-cover"
-                                                         src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"
+                                                         src="assets/img/carusel/1.jpg"
                                                          alt="Slide Image" style="z-index: -1;">
                 <div class="container d-flex flex-column justify-content-center h-100">
                     <div class="row">
-                        <div class="col-md-6 col-xl-8 offset-md-2 d-flex justify-content-center">
-                            <div style="width: auto;">
-                                <h1 class="text-uppercase fw-bold">Im PHP Developer</h1>
-                                <p class="my-3">Lubię tworzyć nowe aplikacje</p>
+                        <div class="col-md-6 col-xl-8 offset-md-2 d-flex justify-content-center text-bg-light bg-opacity-75 rounded-3">
+                            <div class="text-center">
+                                <div style="display: flex; justify-content: center; align-items: center;">
+                                    <img src="src/avataaars.svg" alt="Zdjęcie"
+                                         style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+                                </div>
+                                <h1 class="text-uppercase fw-bold">Jestem programistą PHP</h1>
+                                <p class="my-3">Lubię tworzyć nowe aplikacje z wykorzystaniem frameworku Symfony</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-bs-slide="prev"><span
-                class="carousel-control-prev-icon"></span><span class="visually-hidden">Previous</span></a><a
-                class="carousel-control-next" href="#carousel-1" role="button" data-bs-slide="next"><span
-                class="carousel-control-next-icon"></span><span class="visually-hidden">Next</span></a></div>
-        <ol class="carousel-indicators">
-            <li data-bs-target="#carousel-1" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#carousel-1" data-bs-slide-to="1"></li>
-            <li data-bs-target="#carousel-1" data-bs-slide-to="2"></li>
-        </ol>
     </div>
-    <div>
+
+
+    </div>
+    <!-- END CAROUSEL -->
+    <div class="mt-5 mb-5" style="height: 10em"></div>
+    <div class="mt-5" id="skills-section">
         <section class="py-4 py-xl-5">
             <div class="container">
-                <div class="text-white bg-dark border rounded border-0 p-4 p-md-5">
-                    <h2 class="fw-bold text-center text-white mb-3">My Tech Stack</h2>
-                    <p class="mb-4">Check my experience</p>
+                <div class="text-white bg-black border rounded border-0 p-4 p-md-5">
+                    <h2 class="fw-bold text-center text-white mb-3">Technologie</h2>
+                    <p class="mb-4">Moje doświadczenie w poszczególnej technologii.</p>
                     <div class="table-responsive text-light">
                         <table class="table">
                             <thead>
                             <tr>
-                                <th class="bg-light" colspan="2">Technology name</th>
-                                <th class="bg-light">Percentage</th>
+                                <th class="bg-light col-6">Technologia</th>
+                                <th class="bg-light col-6"></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td class="bg-light" style="padding-top: 8px;">PHP.img</td>
-                                <td class="bg-light">PHP</td>
+                                <td class="bg-light" style="padding-top: 8px;"><img src="src/img/tech/php.svg"></td>
                                 <td class="bg-light">
                                     <div class="progress border rounded-pill border-dark">
-                                        <div class="progress-bar progress-bar-animated" aria-valuenow="50"
+                                        <div class="progress-bar progress-bar-animated text-bg-warning progress-bar-striped progress-bar-animated" aria-valuenow="50"
                                              aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="bg-light" style="padding-top: 8px;">PHP.img</td>
-                                <td class="bg-light">Symfony</td>
+                                <td class="bg-light" style="padding-top: 8px;"><img src="src/img/tech/symfony.svg"></td>
                                 <td class="bg-light">
                                     <div class="progress border rounded-pill border-dark">
-                                        <div class="progress-bar" aria-valuenow="50" aria-valuemin="0"
+                                        <div class="progress-bar text-bg-warning progress-bar-striped progress-bar-animated" aria-valuenow="50" aria-valuemin="0"
                                              aria-valuemax="100" style="width: 50%;">50%
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="bg-light" style="padding-top: 8px;">PHP.img</td>
-                                <td class="bg-light">Git</td>
+                                <td class="bg-light" style="padding-top: 8px;"><img src="src/img/tech/git.svg"></td>
                                 <td class="bg-light">
                                     <div class="progress border rounded-pill border-dark">
-                                        <div class="progress-bar" aria-valuenow="10" aria-valuemin="0"
+                                        <div class="progress-bar text-bg-danger progress-bar-striped progress-bar-animated" aria-valuenow="10" aria-valuemin="0"
                                              aria-valuemax="100" style="width: 10%;">10%
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="bg-light" style="padding-top: 8px;">PHP.img</td>
-                                <td class="bg-light">MySql</td>
+                                <td class="bg-light" style="padding-top: 8px;"><img src="src/img/mysql-horizontal.svg">
+                                </td>
                                 <td class="bg-light">
                                     <div class="progress border rounded-pill border-dark">
-                                        <div class="progress-bar" aria-valuenow="20" aria-valuemin="0"
+                                        <div class="progress-bar text-bg-danger progress-bar-striped progress-bar-animated" aria-valuenow="20" aria-valuemin="0"
                                              aria-valuemax="100" style="width: 20%;">20%
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="bg-light" style="padding-top: 8px;">PHP.img</td>
-                                <td class="bg-light">JavaScript</td>
+                                <td class="bg-light" style="padding-top: 8px;"><img src="src/img/tech/javascript.svg">
+                                </td>
                                 <td class="bg-light">
                                     <div class="progress border rounded-pill border-dark">
-                                        <div class="progress-bar" aria-valuenow="10" aria-valuemin="0"
+                                        <div class="progress-bar text-bg-danger progress-bar-striped progress-bar-animated" aria-valuenow="10" aria-valuemin="0"
                                              aria-valuemax="100" style="width: 10%;">10%
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="bg-light" style="padding-top: 8px;">PHP.img</td>
-                                <td class="bg-light">HTML 5</td>
+                                <td class="bg-light" style="padding-top: 8px;"><img src="src/img/tech/html5.svg"></td>
                                 <td class="bg-light">
-                                    <div class="progress border rounded-pill border-dark">
-                                        <div class="progress-bar" aria-valuenow="50" aria-valuemin="0"
+                                    <div class="progress border rounded-pill border-dark prgrs-bar">
+                                        <div class="progress-bar text-bg-warning progress-bar-striped progress-bar-animated" aria-valuenow="50" aria-valuemin="0"
                                              aria-valuemax="100" style="width: 50%;">50%
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="bg-light" style="padding-top: 8px;">PHP.img</td>
-                                <td class="bg-light">Bootstrap 5</td>
+                                <td class="bg-light" style="padding-top: 8px;"><img src="src/img/tech/Bootstrap.svg" style="height: 60px"></td>
                                 <td class="bg-light">
-                                    <div class="progress border rounded-pill border-dark" id="testowy_progressbar">
-                                        <div class="progress-bar" aria-valuenow="30" aria-valuemin="0"
-                                             aria-valuemax="100" style="width: 30%;">30%
+                                    <div class="progress-container">
+                                        <div class="progress border rounded-pill border-dark prgrs-bar">
+                                            <div class="progress-bar text-bg-warning progress-bar-striped progress-bar-animated"
+                                                 role="progressbar" aria-valuenow="30" aria-valuemin="0"
+                                                 aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                 </td>
@@ -260,107 +271,259 @@
                             <tr></tr>
                             </tbody>
                         </table>
+                        <script>
+                            var progressBars = document.querySelectorAll('.progress-bar');
+
+                            function setInitialWidth() {
+                                progressBars.forEach(function (progressBar) {
+                                    progressBar.style.width = '0%';
+                                });
+                            }
+
+                            setInitialWidth();
+
+                            function animateProgressBars() {
+                                progressBars.forEach(function (progressBar) {
+                                    var progressValue = parseInt(progressBar.getAttribute('aria-valuenow'));
+                                    var width = 0;
+                                    var id = setInterval(frame, 25);
+
+                                    function frame() {
+                                        if (width >= progressValue) {
+                                            clearInterval(id);
+                                        } else {
+                                            width++;
+                                            progressBar.style.width = width + '%';
+                                            progressBar.innerText = width + '%';
+                                        }
+                                    }
+                                });
+                            }
+
+                            // Utwórz nową instancję Intersection Observer
+                            var observer = new IntersectionObserver(function (entries, observer) {
+                                entries.forEach(function (entry) {
+                                    if (entry.isIntersecting) {
+                                        animateProgressBars();
+                                        observer.unobserve(entry.target);
+                                    }
+                                });
+                            });
+
+                            // Obserwuj kontenery pasków postępu
+                            progressBars.forEach(function (progressBar) {
+                                observer.observe(progressBar);
+                            });
+                        </script>
+
+
                     </div>
                 </div>
             </div>
         </section>
     </div>
-    <div>
-        <div class="container">
-            <h1 class="text-center">Education</h1>
+    <div class="timeline" id="edu-section">
+        <div class="container bg-black rounded-3">
+            <h1 class="text-center text-light">Wykształcenie</h1>
             <div class="row">
                 <div class="col-lg-7 mx-auto">
                     <ul class="timeline">
-                        <li class="bg-white shadow timeline-item rounded ml-3 p-4">
-                            <div class="timeline-arrow"></div>
-                            <h2 class="h5 mb-0">IT Engineer</h2><span class="small text-gray"><i
-                                class="fa fa-clock-o mr-1"></i>2021 - present<span class="small text-gray"
-                                                                                   style="position: static;display: block;"><svg
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 -64 640 640" width="1em" height="1em"
-                                fill="currentColor" class="mr-1" style="font-size: 13px;">
-                                            <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
-                                            <path d="M320 128C328.8 128 336 135.2 336 144V160H352C360.8 160 368 167.2 368 176C368 184.8 360.8 192 352 192H320C311.2 192 304 184.8 304 176V144C304 135.2 311.2 128 320 128zM476.8 98.06L602.4 125.1C624.4 130.9 640 150.3 640 172.8V464C640 490.5 618.5 512 592 512H48C21.49 512 0 490.5 0 464V172.8C0 150.3 15.63 130.9 37.59 125.1L163.2 98.06L302.2 5.374C312.1-1.791 327-1.791 337.8 5.374L476.8 98.06zM256 512H384V416C384 380.7 355.3 352 320 352C284.7 352 256 380.7 256 416V512zM96 192C87.16 192 80 199.2 80 208V272C80 280.8 87.16 288 96 288H128C136.8 288 144 280.8 144 272V208C144 199.2 136.8 192 128 192H96zM496 272C496 280.8 503.2 288 512 288H544C552.8 288 560 280.8 560 272V208C560 199.2 552.8 192 544 192H512C503.2 192 496 199.2 496 208V272zM96 320C87.16 320 80 327.2 80 336V400C80 408.8 87.16 416 96 416H128C136.8 416 144 408.8 144 400V336C144 327.2 136.8 320 128 320H96zM496 400C496 408.8 503.2 416 512 416H544C552.8 416 560 408.8 560 400V336C560 327.2 552.8 320 544 320H512C503.2 320 496 327.2 496 336V400zM320 88C271.4 88 232 127.4 232 176C232 224.6 271.4 264 320 264C368.6 264 408 224.6 408 176C408 127.4 368.6 88 320 88z"></path>
-                                        </svg>&nbsp;Collegium Da Vinci w Poznaniu</span></span>
-                            <p class="text-small mt-2 font-weight-light">Jakiś opis uczelni</p>
+                        <li class="timeline-item bg-white shadow rounded ml-3 p-4">
+                            <h2 class="h5 mb-0">Inżynier IT</h2>
+                            <span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>2021 - present</span>
+                            <span class="small text-gray" style="display: block;"><i class="fa fa-graduation-cap"></i>Collegium Da Vinci w Poznaniu</span>
+                            <p class="text-small mt-2 font-weight-light">Collegium da Vinci to renomowana uczelnia, na której obecnie studiuję.
+                                Uczelnia oferuje dynamiczne i innowacyjne podejście do nauki, umożliwiając mi rozwijanie praktycznych umiejętności poprzez liczne projekty.
+                                To wspaniałe miejsce, które umożliwia mi zdobywanie wiedzy, rozwój zawodowy i budowanie wartościowych relacji z innymi pasjonatami informatyki.
+                            </p>
                         </li>
-                        <li class="bg-white shadow timeline-item rounded ml-3 p-4">
-                            <div class="timeline-arrow"></div>
-                            <h2 class="h5 mb-0">IT Technician</h2><span class="small text-gray"><i
-                                class="fa fa-clock-o mr-1"></i>2013-2017</span><span class="small text-gray"
-                                                                                     style="position: static;display: block;"><svg
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 -64 640 640" width="1em" height="1em"
-                                fill="currentColor" class="mr-1" style="font-size: 13px;">
-                                        <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
-                                        <path d="M320 128C328.8 128 336 135.2 336 144V160H352C360.8 160 368 167.2 368 176C368 184.8 360.8 192 352 192H320C311.2 192 304 184.8 304 176V144C304 135.2 311.2 128 320 128zM476.8 98.06L602.4 125.1C624.4 130.9 640 150.3 640 172.8V464C640 490.5 618.5 512 592 512H48C21.49 512 0 490.5 0 464V172.8C0 150.3 15.63 130.9 37.59 125.1L163.2 98.06L302.2 5.374C312.1-1.791 327-1.791 337.8 5.374L476.8 98.06zM256 512H384V416C384 380.7 355.3 352 320 352C284.7 352 256 380.7 256 416V512zM96 192C87.16 192 80 199.2 80 208V272C80 280.8 87.16 288 96 288H128C136.8 288 144 280.8 144 272V208C144 199.2 136.8 192 128 192H96zM496 272C496 280.8 503.2 288 512 288H544C552.8 288 560 280.8 560 272V208C560 199.2 552.8 192 544 192H512C503.2 192 496 199.2 496 208V272zM96 320C87.16 320 80 327.2 80 336V400C80 408.8 87.16 416 96 416H128C136.8 416 144 408.8 144 400V336C144 327.2 136.8 320 128 320H96zM496 400C496 408.8 503.2 416 512 416H544C552.8 416 560 408.8 560 400V336C560 327.2 552.8 320 544 320H512C503.2 320 496 327.2 496 336V400zM320 88C271.4 88 232 127.4 232 176C232 224.6 271.4 264 320 264C368.6 264 408 224.6 408 176C408 127.4 368.6 88 320 88z"></path>
-                                    </svg>&nbsp;Zespół Szkół Technicznych im 55. Pułku Piechoty w Lesznie</span>
-                            <p class="text-small mt-2 font-weight-light">Jakiś opis uczelni</p>
+                        <li class="timeline-item bg-white shadow rounded ml-3 p-4">
+                            <h2 class="h5 mb-0">Technik IT</h2>
+                            <span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>2013-2017</span>
+                            <span class="small text-gray" style="display: block;"><i class="fa fa-graduation-cap"></i>Zespół Szkół Technicznych im 55. Pułku Piechoty w Lesznie</span>
+                            <p class="text-small mt-2 font-weight-light">Ukończyłem Zespół Szkół Technicznych im. 55 Pułku Piechoty w Lesznie, placówkę o wysokim standardzie nauczania.
+                                Zespół nauczycieli i specjalistów z branży IT zapewniał nam wszechstronne przygotowanie.
+                                Zajęcia obejmowały programowanie, projektowanie stron internetowych i bazy danych.
+                                Współpracowaliśmy w projektach grupowych, zdobywając cenne doświadczenie w pracy zespołowej.
+                                Ukończenie tej szkoły umocniło moje fundamenty zawodowe i przygotowało mnie do kariery w technologii informatycznych.</p>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="timeline">
-        <div class="container" style="padding-top: 0px;">
-            <h1 class="text-center">Experience</h1>
+
+    <div class="timeline mt-5" id="exp-section">
+        <div class="container bg-black rounded-3" style="padding-top: 0px;">
+            <h1 class="text-center text-white">Doświadczenie</h1>
             <div class="row">
                 <div class="col-lg-7 mx-auto">
                     <ul class="timeline">
                         <li class="bg-white shadow timeline-item rounded ml-3 p-4">
-                            <div class="timeline-arrow"></div>
-                            <h2 class="h5 mb-0">PHP Developer</h2><span class="small text-gray"><i
-                                class="fa fa-clock-o mr-1"></i>Present</span><span class="small text-gray"
-                                                                                   style="position: static;display: block;"><svg
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em"
-                                fill="currentColor" class="mr-1">
-                                        <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
-                                        <path d="M0 144v288C0 457.6 22.41 480 48 480H96V96H48C22.41 96 0 118.4 0 144zM336 0h-160C150.4 0 128 22.41 128 48V480h256V48C384 22.41 361.6 0 336 0zM336 96h-160V48h160V96zM464 96H416v384h48c25.59 0 48-22.41 48-48v-288C512 118.4 489.6 96 464 96z"></path>
-                                    </svg>&nbsp;No Comapny</span>
-                            <p class="text-small mt-2 font-weight-light">Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare.
-                                Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
+                            <h2 class="h5 mb-0">Praktyka w dziale IT</h2>
+                            <span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>Lipiec 2023 - Styczeń 2025</span>
+                            <span class="small text-gray" style="position: static;display: block;">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em"
+                                    fill="currentColor" class="mr-1">
+                                <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                <path
+                                        d="M0 144v288C0 457.6 22.41 480 48 480H96V96H48C22.41 96 0 118.4 0 144zM336 0h-160C150.4 0 128 22.41 128 48V480h256V48C384 22.41 361.6 0 336 0zM336 96h-160V48h160V96zM464 96H416v384h48c25.59 0 48-22.41 48-48v-288C512 118.4 489.6 96 464 96z">
+                                </path>
+                                </svg>
+                                AK Sp z o.o.</span>
+                            <p class="text-small mt-2 font-weight-light">
+                                Zakres obowiązków:
+                                <ul>
+                                    <li>Montaż i eksploatacja urządzeń</li>
+                                    <li>Administracja sieciowymi systemami operacyjnymi</li>
+                                    <li>Projektowanie i montaż lokalnych sieci komputerowych</li>
+                                    <li>Tworzenie i zarządzanie bazami danych</li>
+                                    <li>Programowanie aplikacji internetowych</li>
+                                </ul>
+                            </p>
+                        </li>
+                        <li class="bg-white shadow timeline-item rounded ml-3 p-4">
+                            <h2 class="h5 mb-0">Praktyka w serwisie komputerowym</h2>
+                            <span class="small text-gray"><i class="fa fa-clock-o mr-1"></i> Maj 2016 - Czerwiec 2016</span>
+                            <span class="small text-gray" style="position: static;display: block;">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em"
+                                    fill="currentColor" class="mr-1">
+                                <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                <path
+                                        d="M0 144v288C0 457.6 22.41 480 48 480H96V96H48C22.41 96 0 118.4 0 144zM336 0h-160C150.4 0 128 22.41 128 48V480h256V48C384 22.41 361.6 0 336 0zM336 96h-160V48h160V96zM464 96H416v384h48c25.59 0 48-22.41 48-48v-288C512 118.4 489.6 96 464 96z">
+                                </path>
+                                </svg>&nbsp;
+                                Przykładowa Firma</span>
+                            <p class="text-small mt-2 font-weight-light">
+                            Zakres obowiązków:
+                                <ul>
+                                    <li>Naprawa Komputerów</li>
+                                    <li>Instalacja Systemu operacyjnego</li>
+                                    <li>Zarządzanie stroną WWW</li>
+                                </ul>
+                            </p>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+
     <div>
-        <div class="container">
-            <h1 class="text-center">Projekty</h1>
+        <div class="container bg-black rounded-3" id="project-section">
+            <h1 class="text-center text-white">Projekty</h1>
             <div class="carousel slide carousel-dark" data-bs-ride="false" data-bs-pause="false" id="carousel-2">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="card-group" style="margin-bottom: 3em;">
                             <div class="card"><img class="card-img-top w-100 d-block">
                                 <div class="card-body">
-                                    <h4 class="card-title">Title</h4>
-                                    <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
-                                        justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                        porta gravida at eget metus.</p>
-                                    <button class="btn btn-primary" type="button">Button</button>
+                                    <h4 class="card-title">Dinotopia</h4>
+                                    <p class="card-text">Pierwszy projekt z zastosowaniem API oraz TDD</p>
+                                    <p class="card-text">Technologie:
+                                        <span class="badge bg-black">TDD</span>
+                                        <span class="badge bg-black">PHP</span>
+                                        <span class="badge bg-black">SYMFONY</span>
+                                        <span class="badge bg-black">API</span>
+                                    </p>
+                                    <a href="https://github.com/Scoobydowsky/Dinotopia" target="_blank"
+                                       class="btn btn-primary" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-github" style="margin-right: 0.2em;">
+                                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                                        </svg>
+                                        Zobacz na Github</a>
                                 </div>
                             </div>
                             <div class="card"><img class="card-img-top w-100 d-block">
                                 <div class="card-body">
-                                    <h4 class="card-title">Title</h4>
-                                    <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
-                                        justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                        porta gravida at eget metus.</p>
-                                    <button class="btn btn-primary" type="button">Button</button>
+                                    <h4 class="card-title">Cauldron Overflow</h4>
+                                    <p class="card-text">Projekt w którym stworzyem stronę ala Stack Overflow tylko że dla czarodziejów.</p>
+                                    <p class="card-text">Technologie:
+                                        <span class="badge bg-black">PHP</span>
+                                        <span class="badge bg-black">TWIG</span>
+                                        <span class="badge bg-black">SYMFONY</span>
+                                        <span class="badge bg-black">DOCKER</span>
+                                        <span class="badge bg-black">MYSQL</span>
+                                    </p>
+                                    <a href="https://github.com/Scoobydowsky/cauldron_overflow" target="_blank"
+                                       class="btn btn-primary" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-github" style="margin-right: 0.2em;">
+                                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                                        </svg>
+                                        Zobacz na Github</a>
                                 </div>
                             </div>
                             <div class="card"><img class="card-img-top w-100 d-block">
                                 <div class="card-body">
-                                    <h4 class="card-title">Title</h4>
-                                    <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
-                                        justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                        porta gravida at eget metus.</p>
-                                    <button class="btn btn-primary" type="button">Button</button>
+                                    <h4 class="card-title">Dekoder wyposażenia VW (CLI)</h4>
+                                    <p class="card-text">Projekt umożliwiający sprawdzenie w konsoli wyposażenia danego auta grupy vag po kodzie wyposażenia.</p>
+                                    <p class="card-text">Technologie:
+                                        <span class="badge bg-black">PHP</span>
+                                        <span class="badge bg-black">SYMFONY</span>
+                                        <span class="badge bg-black">CLI</span>
+                                    </p>
+                                    <a href="https://github.com/Scoobydowsky/VW_eqipment_decoder-CLI" target="_blank"
+                                       class="btn btn-primary" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-github" style="margin-right: 0.2em;">
+                                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                                        </svg>
+                                        Zobacz na Github</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="carousel-item">
+                        <div class="card-group" style="margin-bottom: 3em;">
+                            <div class="card"><img class="card-img-top w-100 d-block">
+                                <div class="card-body">
+                                    <h4 class="card-title">Dekoder wyposażenia VW (WWW)</h4>
+                                    <p class="card-text">Projekt umożliwiający sprawdzenie wyposażenia danego auta grupy vag po kodzie wyposażenia.</p>
+                                    <p class="card-text">Technologie:
+                                        <span class="badge bg-black">PHP</span>
+                                        <span class="badge bg-black">SYMFONY</span>
+                                        <span class="badge bg-black">JavaScript</span>
+                                    </p>
+                                    <a href="https://github.com/Scoobydowsky/vw_decoderWWW" target="_blank"
+                                       class="btn btn-primary" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-github" style="margin-right: 0.2em;">
+                                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                                        </svg>
+                                        Zobacz na Github</a>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="card"><img class="card-img-top w-100 d-block">
+                                <div class="card-body">
+                                    <h4 class="card-title">Title</h4>
+                                    <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
+                                        justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
+                                        porta gravida at eget metus.</p>
+                                    <button class="btn btn-primary" type="button">Button</button>
+                                </div>
+                            </div>
+                            <div class="card"><img class="card-img-top w-100 d-block">
+                                <div class="card-body">
+                                    <h4 class="card-title">Title</h4>
+                                    <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
+                                        justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
+                                        porta gravida at eget metus.</p>
+                                    <button class="btn btn-primary" type="button">Button</button>
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                    </div>
+                    <!--
                     <div class="carousel-item">
                         <div class="card-group" style="margin-bottom: 3em;">
                             <div class="card"><img class="card-img-top w-100 d-block">
@@ -392,48 +555,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item">
-                        <div class="card-group" style="margin-bottom: 3em;">
-                            <div class="card"><img class="card-img-top w-100 d-block">
-                                <div class="card-body">
-                                    <h4 class="card-title">Title</h4>
-                                    <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
-                                        justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                        porta gravida at eget metus.</p>
-                                    <button class="btn btn-primary" type="button">Button</button>
-                                </div>
-                            </div>
-                            <div class="card"><img class="card-img-top w-100 d-block">
-                                <div class="card-body">
-                                    <h4 class="card-title">Title</h4>
-                                    <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
-                                        justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                        porta gravida at eget metus.</p>
-                                    <button class="btn btn-primary" type="button">Button</button>
-                                </div>
-                            </div>
-                            <div class="card"><img class="card-img-top w-100 d-block">
-                                <div class="card-body">
-                                    <h4 class="card-title">Title</h4>
-                                    <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
-                                        justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
-                                        porta gravida at eget metus.</p>
-                                    <button class="btn btn-primary" type="button">Button</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    -->
                 </div>
                 <ol class="carousel-indicators" style="margin-top: 2em;">
                     <li data-bs-target="#carousel-2" data-bs-slide-to="0" class="active"></li>
                     <li data-bs-target="#carousel-2" data-bs-slide-to="1"></li>
+                    <!--
                     <li data-bs-target="#carousel-2" data-bs-slide-to="2"></li>
+                    -->
                 </ol>
             </div>
         </div>
     </div>
-    <div>
-        <div class="container">
+    <div id="calc-section">
+        <div class="container bg-black rounded-3">
+            <h1 class="text-center text-white">Kalkulator</h1>
             <div class="table-responsive">
                 <table class="table table-dark">
                     <thead>
@@ -481,8 +617,10 @@
                         <td style="background: #040404;" id="totalCost">---,-- PLN</td>
                         <td style="background: #040404;">
                             <div class="btn-group" role="group">
-                                <button class="btn btn-primary" onclick="makeCalculations()" type="button">Przelicz</button>
-                                <button class="btn btn-primary" onclick="resetCalculator()" type="button">Zresetuj</button>
+                                <button class="btn btn-primary" onclick="makeCalculations()" type="button">Przelicz
+                                </button>
+                                <button class="btn btn-primary" onclick="resetCalculator()" type="button">Zresetuj
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -493,23 +631,48 @@
     </div>
 </main>
 <footer class="text-white bg-dark d-block"
-        style="margin-top: 1em;background: rgb(0,0,0);--bs-dark: #000;--bs-dark-rgb: 0,0,0;">
+        style="margin-top: 1em;background: rgb(0,0,0);--bs-dark: #000;--bs-dark-rgb: 0,0,0;" id="contact-section">
     <div class="container py-4 py-lg-5" style="margin-top: 3em;">
         <div class="row justify-content-center">
             <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
                 <h3 class="fs-6 text-white">Skontaktuj się ze mną</h3>
                 <ul class="list-unstyled"></ul>
-                <form><label class="form-label" style="margin: 0px;margin-top: 0.5em;">Imię i nazwisko:</label><input
-                        class="form-control" type="text" placeholder="Jan Kowalski"
-                        style="margin: 0px;margin-top: 0.5em;"><label class="form-label"
-                                                                      style="margin: 0px;margin-top: 0.5em;">Adres
-                    Mail:</label><input class="form-control" type="email" placeholder="email@example.com"
-                                        style="margin: 0px;margin-top: 0.5em;"><label class="form-label"
-                                                                                      style="margin: 0px;margin-top: 0.5em;">Twoja
-                    wiadomość:</label><textarea class="form-control"
-                                                style="margin: 0px;margin-top: 0.5em;"></textarea><input
-                        class="btn btn-primary d-inline-block float-end" type="submit" value="Wyślij"
-                        style="margin: 0px;margin-top: 0.5em;"></form>
+                <form>
+                    <div class="form-group">
+                        <label class="form-label" style="margin: 0px;margin-top: 0.5em;">Imię i nazwisko*:</label>
+                        <input class="form-control" type="text" placeholder="Jan Kowalski"
+                               style="margin: 0px;margin-top: 0.5em;" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="margin: 0px;margin-top: 0.5em;">Adres Mail*:</label>
+                        <input class="form-control" type="email" placeholder="email@example.com"
+                               style="margin: 0px;margin-top: 0.5em;" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="margin: 0px;margin-top: 0.5em;">Twoja wiadomość:</label>
+                        <textarea class="form-control" style="margin: 0px;margin-top: 0.5em;"></textarea>
+                    </div>
+                    <input class="btn btn-primary d-inline-block float-end" type="submit" value="Wyślij"
+                           style="margin: 0px;margin-top: 0.5em;">
+                    <p class="d-block">* pola wymagane</p>
+                </form>
+                <script>
+                    var formControls = document.querySelectorAll('.form-control');
+
+                    formControls.forEach(function (formControl) {
+                        formControl.addEventListener('click', function () {
+                            if (!this.checkValidity()) {
+                                this.classList.add('border-danger');
+                            }
+                        });
+
+                        formControl.addEventListener('input', function () {
+                            if (this.checkValidity()) {
+                                this.classList.remove('border-danger');
+                            }
+                        });
+                    });
+                </script>
             </div>
             <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
                 <h3 class="fs-6 text-white">Kontakt</h3>
@@ -519,13 +682,13 @@
                              viewBox="0 0 16 16" class="bi bi-linkedin" style="margin-right: 0.2em;">
                             <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"></path>
                         </svg>
-                        <a class="link-light" href="#">Tomasz Woytkowiak</a></li>
+                        <a class="link-light" href="https://www.linkedin.com/in/tomek-woytkowiak/">Tomasz Woytkowiak</a></li>
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
                              viewBox="0 0 16 16" class="bi bi-github" style="margin-right: 0.2em;">
                             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
                         </svg>
-                        <a class="link-light" href="#">Scoobydowsky</a></li>
+                        <a class="link-light" href="https://github.com/Scoobydowsky">Scoobydowsky</a></li>
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
                              stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -535,7 +698,8 @@
                             <rect x="3" y="5" width="18" height="14" rx="2"></rect>
                             <polyline points="3 7 12 13 21 7"></polyline>
                         </svg>
-                        <a class="link-light" href="#">tomek.woytkowiak@gmail.com</a></li>
+                        <a class="link-light" href="mailto:tomek.woytkowiak@gmail.com">tomek.woytkowiak@gmail.com</a>
+                    </li>
                 </ul>
             </div>
             <div class="col-lg-3 text-center text-lg-start d-flex flex-column align-items-center order-first align-items-lg-start order-lg-last">
@@ -545,7 +709,8 @@
                         fill="currentColor" class="fs-5">
                                 <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
                                 <path d="M88 304H80V256H88C101.3 256 112 266.7 112 280C112 293.3 101.3 304 88 304zM192 256H200C208.8 256 216 263.2 216 272V336C216 344.8 208.8 352 200 352H192V256zM224 0V128C224 145.7 238.3 160 256 160H384V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H224zM64 224C55.16 224 48 231.2 48 240V368C48 376.8 55.16 384 64 384C72.84 384 80 376.8 80 368V336H88C118.9 336 144 310.9 144 280C144 249.1 118.9 224 88 224H64zM160 368C160 376.8 167.2 384 176 384H200C226.5 384 248 362.5 248 336V272C248 245.5 226.5 224 200 224H176C167.2 224 160 231.2 160 240V368zM288 224C279.2 224 272 231.2 272 240V368C272 376.8 279.2 384 288 384C296.8 384 304 376.8 304 368V320H336C344.8 320 352 312.8 352 304C352 295.2 344.8 288 336 288H304V256H336C344.8 256 352 248.8 352 240C352 231.2 344.8 224 336 224H288zM256 0L384 128H256V0z"></path>
-                            </svg></span><span><a class="link-light" href="#">Pobierz CV</a></span></div>
+                            </svg></span><span><a class="link-light" href="/Tomasz_Woytkowiak.pdf">Pobierz CV</a></span>
+                </div>
                 <p class="text-muted">Jeżeli ciebie zainteresowałem pobierz moje CV i przekaż je dalej HR</p>
             </div>
         </div>
@@ -554,28 +719,86 @@
             <p class="mb-0">Copyright © 2023 Scoobydowsky</p>
             <ul class="list-inline mb-0">
                 <li class="list-inline-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
-                         viewBox="0 0 16 16" class="bi bi-github">
-                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
+                    <a href="https://github.com/Scoobydowsky" class="text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                             viewBox="0 0 16 16" class="bi bi-github">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                        </svg>
+                    </a>
                 </li>
                 <li class="list-inline-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
-                         viewBox="0 0 16 16" class="bi bi-linkedin">
-                        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"></path>
-                    </svg>
-                </li>
-                <li class="list-inline-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
-                         viewBox="0 0 16 16" class="bi bi-instagram">
-                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"></path>
-                    </svg>
+                    <a href="https://www.linkedin.com/in/tomek-woytkowiak/" class="text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                             viewBox="0 0 16 16" class="bi bi-linkedin">
+                            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"></path>
+                        </svg>
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
 </footer>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-</body>
+<script>
+    window.addEventListener("scroll", function () {
+        var timelineItems = document.querySelectorAll(".timeline-item");
+        for (var i = 0; i < timelineItems.length; i++) {
+            var timelineItem = timelineItems[i];
+            if (isElementInViewport(timelineItem) && !timelineItem.classList.contains("show")) {
+                timelineItem.classList.add("show");
+            }
+        }
+    });
 
+    function isElementInViewport(element) {
+        var rect = element.getBoundingClientRect();
+        return rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Pobierz aktualny adres URL
+        var currentUrl = window.location.href;
+
+        // Znajdź wszystkie elementy listy w navbarze
+        var navItems = $('.navbar-nav li');
+
+        // Funkcja sprawdzająca, czy sekcja jest widoczna na ekranie
+        function isSectionVisible(sectionId) {
+            var section = $(sectionId);
+            var offset = section.offset();
+            var scrollTop = $(window).scrollTop();
+            var windowHeight = $(window).height();
+            return (offset.top > scrollTop && offset.top < (scrollTop + windowHeight));
+        }
+
+        // Funkcja aktualizująca aktywny link w navbarze
+        function updateActiveLink() {
+            for (var i = 0; i < navItems.length; i++) {
+                var link = $(navItems[i]).find('a');
+                var linkUrl = link.attr('href');
+                var sectionId = link.attr('href');
+
+                if (isSectionVisible(sectionId)) {
+                    // Usuń klasę "active" ze wszystkich linków
+                    navItems.find('a').removeClass('active');
+
+                    // Dodaj klasę "active" do linku, który odpowiada aktualnej widocznej sekcji
+                    link.addClass('active');
+                }
+            }
+        }
+
+        // Obsługa zdarzenia przewijania
+        $(window).scroll(function() {
+            updateActiveLink();
+        });
+
+        // Wywołaj funkcję aktualizującą aktywny link przy załadowaniu strony
+        updateActiveLink();
+    });
+</script>
+
+</body>
 </html>
