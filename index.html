@@ -65,6 +65,7 @@
     </div>
 </nav>
 <main>
+    <div class="" id="about-me-section">
     <!-- POPUP -->
     <div class="modal fade" role="dialog" tabindex="-1" id="contact-modal">
         <div class="modal-dialog" role="document">
@@ -100,22 +101,21 @@
     </div>
     <!-- END POPUP-->
     <!-- CAROUSEL -->
-    <div class="mb-5" id="about-me-section">
     <div class="carousel slide carousel-fade"  data-bs-ride="carousel" data-bs-interval="3000"
          id="carousel-1"
          style="height: 600px;">
         <div class="carousel-inner h-100">
             <div class="carousel-item h-100"><img class="w-100 d-block position-absolute h-100 fit-cover"
-                                                  src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"
+                                                  src="assets/img/carusel/2.jpg"
                                                   alt="Slide Image" style="z-index: -1;">
-                <div class="container text-start d-flex flex-column justify-content-center h-100">
+                <div class="container text-start d-flex flex-column justify-content-center h-100 text-bg-light bg-opacity-75 rounded-3">
                     <div class="row">
                         <div class="col-md-6 col-xl-3 offset-md-2">
                             <div style="max-width: 350px;"></div>
                             <img class="img-fluid d-block float-end d-xl-flex" src="assets/img/me.jpeg" loading="lazy">
                         </div>
                         <div class="col-md-6 col-xl-3 offset-md-2 offset-xl-1">
-                            <div style="max-width: 350px;">
+                            <div style=";">
                                 <h1 class="text-uppercase fw-bold">Cześć, jestem Tomek</h1>
                                 <p class="my-3"><span style="color: rgb(104, 108, 109);">
                                     Witaj, nazywam się Tomasz Woytkowiak. Studiuję informatykę na Collegium Da vinci w Poznaniu.
@@ -138,7 +138,7 @@
                             <img class="img-fluid d-block float-end d-xl-flex" src="assets/img/me.jpeg" loading="lazy">
                         </div>
                         <div class="col-md-6 col-xl-3 offset-md-2">
-                            <div style="max-width: 350px;">
+                            <div style="">
                                 <h1 class="text-uppercase fw-bold">Cześć, jestem Tomek</h1>
                                 <p class="my-5">Moje hobby:</p>
                                 <ul>
@@ -178,12 +178,17 @@
 
     </div>
     <!-- END CAROUSEL -->
-    <div class="mt-5 mb-5" style="height: 10em"></div>
+    <section class="py-4 py-xl-5 mt-5 mb-5">
+        <div class="container">
+            <div class="bg-black border justify-content-center rounded border-0 border-light  flex-column justify-content-between flex-lg-row p-4 p-md-5">
+                <h1 class="fw-bold text-white text-center mb-2" style="display: block">Technologie</h1>
+            </div>
+        </div>
+    </section>
     <div class="mt-5" id="skills-section">
         <section class="py-4 py-xl-5">
             <div class="container">
                 <div class="text-white bg-black border rounded border-0 p-4 p-md-5">
-                    <h2 class="fw-bold text-center text-white mb-3">Technologie</h2>
                     <p class="mb-4">Moje doświadczenie w poszczególnej technologii.</p>
                     <div class="table-responsive text-light">
                         <table class="table">
@@ -322,9 +327,15 @@
             </div>
         </section>
     </div>
+    <section class="py-4 py-xl-5 mt-5 mb-5">
+        <div class="container">
+            <div class="bg-black border justify-content-center rounded border-0 border-light  flex-column justify-content-between flex-lg-row p-4 p-md-5">
+                <h1 class="fw-bold text-white text-center mb-2" style="display: block">Wykształcenie</h1>
+            </div>
+        </div>
+    </section>
     <div class="timeline" id="edu-section">
         <div class="container bg-black rounded-3">
-            <h1 class="text-center text-light">Wykształcenie</h1>
             <div class="row">
                 <div class="col-lg-7 mx-auto">
                     <ul class="timeline">
@@ -353,9 +364,15 @@
         </div>
     </div>
 
+    <section class="py-4 py-xl-5 mt-5 mb-5">
+        <div class="container">
+            <div class="bg-black border justify-content-center rounded border-0 border-light  flex-column justify-content-between flex-lg-row p-4 p-md-5">
+                <h1 class="fw-bold text-white text-center mb-2" style="display: block">Doświadczenie</h1>
+            </div>
+        </div>
+    </section>
     <div class="timeline mt-5" id="exp-section">
         <div class="container bg-black rounded-3" style="padding-top: 0px;">
-            <h1 class="text-center text-white">Doświadczenie</h1>
             <div class="row">
                 <div class="col-lg-7 mx-auto">
                     <ul class="timeline">
@@ -411,10 +428,16 @@
         </div>
     </div>
 
+    <section class="py-4 py-xl-5 mt-5 mb-5">
+        <div class="container">
+            <div class="bg-black border justify-content-center rounded border-0 border-light  flex-column justify-content-between flex-lg-row p-4 p-md-5">
+                <h1 class="fw-bold text-white text-center mb-2" style="display: block">Projekty</h1>
+            </div>
+        </div>
+    </section>
     <div>
         <div class="container bg-black rounded-3" id="project-section">
-            <h1 class="text-center text-white">Projekty</h1>
-            <div class="carousel slide carousel-dark" data-bs-ride="false" data-bs-pause="false" id="carousel-2">
+            <div class="carousel slide carousel-dark pt-3" data-bs-ride="false" data-bs-pause="false" id="carousel-2">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="card-group" style="margin-bottom: 3em;">
@@ -557,9 +580,9 @@
                     </div>
                     -->
                 </div>
-                <ol class="carousel-indicators" style="margin-top: 2em;">
-                    <li data-bs-target="#carousel-2" data-bs-slide-to="0" class="active"></li>
-                    <li data-bs-target="#carousel-2" data-bs-slide-to="1"></li>
+                <ol class="carousel-indicators" style="">
+                    <li data-bs-target="#carousel-2" data-bs-slide-to="0" class="active text-bg-light"></li>
+                    <li data-bs-target="#carousel-2" data-bs-slide-to="1" class="text-bg-light"></li>
                     <!--
                     <li data-bs-target="#carousel-2" data-bs-slide-to="2"></li>
                     -->
@@ -567,9 +590,16 @@
             </div>
         </div>
     </div>
+
+    <section class="py-4 py-xl-5 mt-5 mb-5">
+        <div class="container">
+            <div class="bg-black border justify-content-center rounded border-0 border-light  flex-column justify-content-between flex-lg-row p-4 p-md-5">
+                <h1 class="fw-bold text-white text-center mb-2" style="display: block">Kalkulator</h1>
+            </div>
+        </div>
+    </section>
     <div id="calc-section">
         <div class="container bg-black rounded-3">
-            <h1 class="text-center text-white">Kalkulator</h1>
             <div class="table-responsive">
                 <table class="table table-dark">
                     <thead>
